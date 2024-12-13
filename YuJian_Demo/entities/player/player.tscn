@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://clxje1u677ln6"]
+
+[ext_resource type="Texture2D" uid="uid://dnhuyidct7lvo" path="res://icon.svg" id="1_4a5ug"]
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_chnlv"]
+
+[sub_resource type="Animation" id="Animation_ube8f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2wnph"]
+resource_name = "move_down"
+
+[sub_resource type="Animation" id="Animation_hu872"]
+resource_name = "move_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_83t5x"]
+_data = {
+"RESET": SubResource("Animation_ube8f"),
+"move_down": SubResource("Animation_2wnph"),
+"move_up": SubResource("Animation_hu872")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pw0tp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4a5ug")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_olp3b"]
+size = Vector2(120, 120)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m31o1"]
+radius = 19.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_chnlv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_83t5x")
+}
+
+[node name="AnimatedSprites" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+sprite_frames = SubResource("SpriteFrames_pw0tp")
+frame_progress = 0.950064
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_olp3b")
+
+[node name="SwordSnapArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordSnapArea"]
+shape = SubResource("CircleShape2D_m31o1")
+
+[connection signal="area_entered" from="SwordSnapArea" to="." method="_on_sword_snap_area_entered"]
+[connection signal="area_exited" from="SwordSnapArea" to="." method="_on_sword_snap_area_exited"]
