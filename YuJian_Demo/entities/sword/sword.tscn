@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bct67o6tbt0wy"]
+[gd_scene load_steps=4 format=3 uid="uid://bct67o6tbt0wy"]
 
 [ext_resource type="Texture2D" uid="uid://dnhuyidct7lvo" path="res://icon.svg" id="1_0je3r"]
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_72j0x"]
@@ -6,10 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_toq58"]
 size = Vector2(176, 8)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p32rq"]
-radius = 18.0
-
-[node name="Sword" type="CharacterBody2D"]
+[node name="Sword" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_72j0x")
 
 [node name="Sprite" type="Node2D" parent="."]
@@ -32,10 +31,3 @@ texture = ExtResource("1_0je3r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_toq58")
-
-[node name="SnapArea" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SnapArea"]
-shape = SubResource("CircleShape2D_p32rq")

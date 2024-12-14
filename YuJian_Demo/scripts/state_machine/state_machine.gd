@@ -40,6 +40,7 @@ func _process(delta: float) -> void:
 	pass
 
 
+
 func _physics_process(delta: float) -> void:
 	if _current_state != null:
 		_current_state._physics_update(delta)
@@ -63,6 +64,6 @@ func change_state(new_state: StringName) -> void:
 			state_changed.emit(new_state)
 			return
 	
-	# 运行到此处说明状态机中不存在传入的状态名称
+	# 运行到此处说明状态机中不存在传入的状态名称，什么都不会发生
 	printerr("状态机中不存在状态: " + new_state)
 	pass

@@ -5,10 +5,6 @@ extends Node
 @onready var background: ParallaxBackground = %Background
 
 
-func _ready() -> void:
-	pass
-
-
 func _process(delta: float) -> void:
 	background.scroll_offset.x -= background_rolling_speed * delta
 	pass

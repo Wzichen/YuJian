@@ -1,7 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://clxje1u677ln6"]
+[gd_scene load_steps=14 format=3 uid="uid://clxje1u677ln6"]
 
 [ext_resource type="Texture2D" uid="uid://dnhuyidct7lvo" path="res://icon.svg" id="1_4a5ug"]
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_chnlv"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="2_fs63r"]
+[ext_resource type="Script" path="res://entities/player/player_jump_state.gd" id="3_cvg82"]
+[ext_resource type="Script" path="res://entities/player/player_fall_state.gd" id="3_qvb84"]
+[ext_resource type="Script" path="res://entities/player/player_riding_sword_state.gd" id="5_ylij4"]
 
 [sub_resource type="Animation" id="Animation_ube8f"]
 length = 0.001
@@ -61,8 +65,23 @@ size = Vector2(120, 120)
 [sub_resource type="CircleShape2D" id="CircleShape2D_m31o1"]
 radius = 19.0
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_chnlv")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_fs63r")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("3_qvb84")
+state_name = &"fall"
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("3_cvg82")
+state_name = &"jump"
+
+[node name="RidingSword" type="Node" parent="StateMachine"]
+script = ExtResource("5_ylij4")
+state_name = &"riding_sword"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -79,11 +98,9 @@ position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_olp3b")
 
 [node name="SwordSnapArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordSnapArea"]
 shape = SubResource("CircleShape2D_m31o1")
-
-[connection signal="area_entered" from="SwordSnapArea" to="." method="_on_sword_snap_area_entered"]
-[connection signal="area_exited" from="SwordSnapArea" to="." method="_on_sword_snap_area_exited"]
