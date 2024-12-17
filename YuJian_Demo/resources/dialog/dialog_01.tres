@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Dialog" load_steps=6 format=3 uid="uid://t20v47a2nmi4"]
+
+[ext_resource type="Script" path="res://resources/dialog/dialog_unit.gd" id="1_fyqsg"]
+[ext_resource type="Texture2D" uid="uid://dnhuyidct7lvo" path="res://icon.svg" id="2_6xcmg"]
+[ext_resource type="Script" path="res://resources/dialog/dialog.gd" id="2_tu047"]
+
+[sub_resource type="Resource" id="Resource_pb052"]
+script = ExtResource("1_fyqsg")
+role_name = "Godot"
+portrait = ExtResource("2_6xcmg")
+content = "不好，宗门现在遭受到了外敌入侵！"
+
+[sub_resource type="Resource" id="Resource_m5oin"]
+script = ExtResource("1_fyqsg")
+role_name = "Godot"
+portrait = ExtResource("2_6xcmg")
+content = "必须得赶快回去！"
+
+[resource]
+script = ExtResource("2_tu047")
+dialog_list = Array[ExtResource("1_fyqsg")]([SubResource("Resource_pb052"), SubResource("Resource_m5oin")])

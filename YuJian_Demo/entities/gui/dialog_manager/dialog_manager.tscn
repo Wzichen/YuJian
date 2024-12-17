@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://m6cx1bvmahyx"]
+
+[ext_resource type="Script" path="res://entities/gui/dialog_manager/dialog_manager.gd" id="1_3tklb"]
+[ext_resource type="Theme" uid="uid://lxvl8uhbfqlj" path="res://resources/gui/dialog_ui_theme.tres" id="1_reybi"]
+[ext_resource type="Texture2D" uid="uid://dnhuyidct7lvo" path="res://icon.svg" id="2_08o3y"]
+
+[node name="DialogManager" type="CanvasLayer"]
+script = ExtResource("1_3tklb")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+texture_filter = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -170.0
+offset_right = 300.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_reybi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PortraitRect" type="TextureRect" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+texture = ExtResource("2_08o3y")
+
+[node name="NameLabel" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Player"
+horizontal_alignment = 1
+
+[node name="ContentLabel" type="Label" parent="PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "测试用文本。"
+autowrap_mode = 3

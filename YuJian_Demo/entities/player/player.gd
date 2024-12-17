@@ -19,6 +19,9 @@ class_name Player extends CharacterBody2D
 ## 角色的移动方向
 var move_motion: Vector2 = Vector2.ZERO
 
+## 角色当前是否可移动
+var can_move: bool = true
+
 ## 角色当前装备的剑
 var equipping_sword: Sword
 
@@ -28,8 +31,12 @@ var _physics_delta: float
 
 func _process(delta: float) -> void:
 	_process_delta = delta
-	move_motion = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	move_motion.y *= 0.7
+	
+	if can_move:
+		move_motion = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		move_motion.y *= 0.7
+	else:
+		move_motion = Vector2.ZERO
 	pass
 
 
@@ -58,7 +65,7 @@ func move_horizontal(horizon_speed: float) -> void:
 
 ## 操控角色跳跃（只有当角色站在地面或剑上时才会生效）
 func jump() -> void:
-	if is_on_floor() or is_on_sword():
+	if can_move and (is_on_floor() or is_on_sword()):
 		unequip_sword()
 		velocity.y = -jump_force
 	pass

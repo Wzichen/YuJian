@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://bcv4sheleabxt"]
+[gd_scene load_steps=13 format=4 uid="uid://bcv4sheleabxt"]
 
-[ext_resource type="Texture2D" uid="uid://j2hxiltc4ypj" path="res://art/Background.png" id="1_7t8tq"]
+[ext_resource type="Texture2D" uid="uid://j2hxiltc4ypj" path="res://art/maps/Background.png" id="1_7t8tq"]
 [ext_resource type="Script" path="res://stages/test_stage.gd" id="1_gdkdt"]
-[ext_resource type="Texture2D" uid="uid://dx7xah7p4iol8" path="res://art/BackgroundTree.png" id="2_51pbg"]
+[ext_resource type="PackedScene" uid="uid://m6cx1bvmahyx" path="res://entities/gui/dialog_manager/dialog_manager.tscn" id="2_5ewdn"]
+[ext_resource type="Texture2D" uid="uid://dx7xah7p4iol8" path="res://art/maps/BackgroundTree.png" id="2_51pbg"]
 [ext_resource type="PackedScene" uid="uid://clxje1u677ln6" path="res://entities/player/player.tscn" id="4_p6qdg"]
 [ext_resource type="PackedScene" uid="uid://bct67o6tbt0wy" path="res://entities/sword/sword.tscn" id="5_mmx7n"]
 
@@ -303,6 +304,9 @@ sources/0 = SubResource("TileSetAtlasSource_0nf51")
 [node name="TestStage" type="Node"]
 script = ExtResource("1_gdkdt")
 
+[node name="DialogManager" parent="." instance=ExtResource("2_5ewdn")]
+unique_name_in_owner = true
+
 [node name="Background" type="ParallaxBackground" parent="."]
 unique_name_in_owner = true
 
@@ -340,8 +344,12 @@ tile_map_data = PackedByteArray("AAAAAB8AAAAHAAAAAAAAACAAAAAHAAEAAAAAACEAAAAHAAI
 tile_set = SubResource("TileSet_egmst")
 
 [node name="Player" parent="." instance=ExtResource("4_p6qdg")]
+unique_name_in_owner = true
 position = Vector2(163, 156)
 collision_layer = 2
 
 [node name="Sword" parent="." instance=ExtResource("5_mmx7n")]
 position = Vector2(159, 461)
+
+[connection signal="dialog_ended" from="DialogManager" to="." method="_on_dialog_manager_dialog_ended"]
+[connection signal="dialog_started" from="DialogManager" to="." method="_on_dialog_manager_dialog_started"]
